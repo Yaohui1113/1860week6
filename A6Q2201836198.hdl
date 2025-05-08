@@ -25,4 +25,3 @@ CHIP A6Q2201836198 {
     Or(a=Or1, b=And3, out=Or2);
     Or(a=Or2, b=And4, out=f);
 }
-}
