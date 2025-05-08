@@ -3,13 +3,15 @@ CHIP A6Q2201836198{
     OUT f;
 
     PARTS:
-    // Generate inverted inputs
+    // Compute intermediate terms
+    Not(in=a, out=Nota);
     Not(in=b, out=Notb);
     Not(in=c, out=Notc);
     Not(in=d, out=Notd);
 
-    // Term 1: (¬b ∧ d)
-    And(a=Notb, b=d, out=term1);
+    // Term 1: (¬b ∧ ¬c ∧ d)
+    And(a=Notb, b=Notc, out=And1);
+    And(a=And1, b=d, out=term1);
 
     // Term 2: (¬b ∧ c ∧ ¬d)
     And(a=Notb, b=c, out=And2);
@@ -23,7 +25,7 @@ CHIP A6Q2201836198{
     And(a=a, b=Notc, out=And4);
     And(a=And4, b=d, out=term4);
 
-    // Combine all terms
+    // Combine all terms with Or
     Or(a=term1, b=term2, out=Or1);
     Or(a=Or1, b=term3, out=Or2);
     Or(a=Or2, b=term4, out=f);
