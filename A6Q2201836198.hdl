@@ -4,23 +4,20 @@ CHIP A6Q2201836198{
 
     PARTS:
 
-    // Not gates for the inputs
     Not(in=a, out=Nota);
     Not(in=b, out=Notb);
     Not(in=c, out=Notc);
     Not(in=d, out=Notd);
 
-    // And gates for the product terms
-    And(a=Nota, b=Notb, out=tempAnd1);     // (¬a ∧ ¬b ∧ ¬d)
-    And(a=tempAnd1, b=Notd, out=And1);     // (¬a ∧ ¬b ∧ ¬d)
-    And(a=Nota, b=Notb, out=tempAnd2);     // (¬a ∧ ¬b ∧ c)
-    And(a=tempAnd2, b=c, out=And2);        // (¬a ∧ ¬b ∧ c)
-    And(a=Nota, b=b, out=tempAnd3);        // (¬a ∧ b ∧ ¬c)
-    And(a=tempAnd3, b=Notc, out=And3);     // (¬a ∧ b ∧ ¬c)
-    And(a=b, b=Notc, out=tempAnd4);        // (b ∧ ¬c ∧ ¬d)
-    And(a=tempAnd4, b=Notd, out=And4);     // (b ∧ ¬c ∧ ¬d)
+    And(a=Nota, b=Notb, out=tempAnd1);     
+    And(a=tempAnd1, b=Notd, out=And1);    
+    And(a=Nota, b=Notb, out=tempAnd2);     
+    And(a=tempAnd2, b=c, out=And2);        
+    And(a=Nota, b=b, out=tempAnd3);        
+    And(a=tempAnd3, b=Notc, out=And3);     
+    And(a=b, b=Notc, out=tempAnd4);        
+    And(a=tempAnd4, b=Notd, out=And4);     
 
-    // Or gates to combine all AND gates to get final output f
     Or(a=And1, b=And2, out=Or1);
     Or(a=Or1, b=And3, out=Or2);
     Or(a=Or2, b=And4, out=f);
