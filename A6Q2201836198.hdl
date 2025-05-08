@@ -3,35 +3,34 @@ CHIP A6Q2201836198{
     OUT f;
 
     PARTS:
-    
-    Not(in=a, out=nota);
-    Not(in=b, out=notb);
-    Not(in=c, out=notc);
-    Not(in=d, out=notd);
+    Not(in=a, out=Nota);
+    Not(in=b, out=Notb);
+    Not(in=c, out=Notc);
+    Not(in=d, out=Notd);
 
-    And(a=nota, b=notb, out=term1_and1);
-    And(a=term1_and1, b=notc, out=term1_and2);
-    And(a=term1_and2, b=d, out=term1);
+    And(a=Nota, b=Notb, out=term1_1);
+    And(a=Notc, b=d, out=term1_2);
+    And(a=term1_1, b=term1_2, out=term1);
 
-    And(a=nota, b=notb, out=term2_and1);
-    And(a=term2_and1, b=c, out=term2_and2);
-    And(a=term2_and2, b=notd, out=term2);
+    And(a=Nota, b=Notb, out=term2_1);
+    And(a=c, b=Notd, out=term2_2);
+    And(a=term2_1, b=term2_2, out=term2);
 
-    And(a=nota, b=b, out=term3_and1);
-    And(a=term3_and1, b=c, out=term3_and2);
-    And(a=term3_and2, b=d, out=term3);
+    And(a=Nota, b=b, out=term3_1);
+    And(a=c, b=d, out=term3_2);
+    And(a=term3_1, b=term3_2, out=term3);
 
-    And(a=a, b=notb, out=term4_and1);
-    And(a=term4_and1, b=notc, out=term4_and2);
-    And(a=term4_and2, b=d, out=term4);
+    And(a=a, b=Notb, out=term4_1);
+    And(a=Notc, b=d, out=term4_2);
+    And(a=term4_1, b=term4_2, out=term4);
 
-    And(a=a, b=notb, out=term5_and1);
-    And(a=term5_and1, b=c, out=term5_and2);
-    And(a=term5_and2, b=notd, out=term5);
+    And(a=a, b=Notb, out=term5_1);
+    And(a=c, b=Notd, out=term5_2);
+    And(a=term5_1, b=term5_2, out=term5);
 
-    And(a=a, b=b, out=term6_and1);
-    And(a=term6_and1, b=notc, out=term6_and2);
-    And(a=term6_and2, b=d, out=term6);
+    And(a=a, b=b, out=term6_1);
+    And(a=Notc, b=d, out=term6_2);
+    And(a=term6_1, b=term6_2, out=term6);
 
     Or(a=term1, b=term2, out=or1);
     Or(a=or1, b=term3, out=or2);
