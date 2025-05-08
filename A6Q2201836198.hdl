@@ -3,24 +3,30 @@ CHIP A6Q2201836198{
     OUT f;
 
     PARTS:
-    // Intermediate terms fOr minimization
-    Not(in=a, out=Nota);
-    Not(in=b, out=Notb);
-    Not(in=c, out=Notc);
-    Not(in=d, out=Notd);
+    // Compute intermediate terms
+    Not(in=a, out=nota);
+    Not(in=b, out=notb);
+    Not(in=c, out=notc);
+    Not(in=d, out=notd);
 
-    // Grouping terms to minimize gates
-    And(a=Nota, b=Notb, c=Notc, d=d, out=term1);      // ¬a∧¬b∧¬c∧d
-    And(a=Nota, b=Notb, c=c, d=Notd, out=term2);       // ¬a∧¬b∧c∧¬d
-    And(a=Nota, b=b, c=c, d=d, out=term3);             // ¬a∧b∧c∧d
-    And(a=a, b=Notb, c=Notc, d=d, out=term4);          // a∧¬b∧¬c∧d
-    And(a=a, b=Notb, c=c, d=Notd, out=term5);          // a∧¬b∧c∧¬d
-    And(a=a, b=b, c=Notc, d=d, out=term6);             // a∧b∧¬c∧d
+    // Term 1: (¬b ∧ ¬c ∧ d)
+    And(a=notb, b=notc, out=tempAnd1);
+    And(a=tempAnd1, b=d, out=And1);
 
-    // Combine all terms using Or gates (can be optimized further if multi-input Or is allowed)
-    Or(a=term1, b=term2, out=Or1);
-    Or(a=Or1, b=term3, out=Or2);
-    Or(a=Or2, b=term4, out=Or3);
-    Or(a=Or3, b=term5, out=Or4);
-    Or(a=Or4, b=term6, out=f);
+    // Term 2: (¬b ∧ c ∧ ¬d)
+    And(a=notb, b=c, out=tempAnd2);
+    And(a=tempAnd2,b=notb,out=And2);
+
+    // Term 3: (b ∧ c ∧ d)
+    And(a=b, b=c, out=tempAnd3);
+    And(a=tempAnd3, b=d, out=And3);
+
+    // Term 4: (a ∧ ¬c ∧ d)
+    And(a=a, b=notc, out=tempAnd4);
+    And(a=tempAnd4, b=d, out=And4);
+
+    // Combine all terms with OR
+    Or(a=And1, b=And2, out=Or1);
+    Or(a=Or1, b=And3, out=Or2);
+    Or(a=Or2, b=And4, out=f);
 }
