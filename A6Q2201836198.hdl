@@ -4,29 +4,29 @@ CHIP A6Q2201836198{
 
     PARTS:
     // Compute intermediate terms
-    Not(in=a, out=Nota);
-    Not(in=b, out=Notb);
-    Not(in=c, out=Notc);
-    Not(in=d, out=Notd);
+    Not(in=a, out=nota);
+    Not(in=b, out=notb);
+    Not(in=c, out=notc);
+    Not(in=d, out=notd);
 
     // Term 1: (¬b ∧ ¬c ∧ d)
-    And(a=Notb, b=Notc, out=tempAnd1);
-    And(a=tempAnd1, b=d, out=And1);
+    And(a=notb, b=notc, out=and1);
+    And(a=and1, b=d, out=term1);
 
     // Term 2: (¬b ∧ c ∧ ¬d)
-    And(a=Notb, b=c, out=tempAnd2);
-    And(a=tempAnd2,b=Notb,out=And2);
+    And(a=notb, b=c, out=and2);
+    And(a=and2, b=notd, out=term2);
 
     // Term 3: (b ∧ c ∧ d)
-    And(a=b, b=c, out=tempAnd3);
-    And(a=tempAnd3, b=d, out=And3);
+    And(a=b, b=c, out=and3);
+    And(a=and3, b=d, out=term3);
 
     // Term 4: (a ∧ ¬c ∧ d)
-    And(a=a, b=Notc, out=tempAnd4);
-    And(a=tempAnd4, b=d, out=And4);
+    And(a=a, b=notc, out=and4);
+    And(a=and4, b=d, out=term4);
 
-    // Combine all terms with Or
-    Or(a=And1, b=And2, out=Or1);
-    Or(a=Or1, b=And3, out=Or2);
-    Or(a=Or2, b=And4, out=f);
+    // Combine all terms with OR
+    Or(a=term1, b=term2, out=or1);
+    Or(a=or1, b=term3, out=or2);
+    Or(a=or2, b=term4, out=f);
 }
